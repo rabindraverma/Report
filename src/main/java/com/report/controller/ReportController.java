@@ -1,8 +1,11 @@
 package com.report.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
+import org.hibernate.type.LocalDateTimeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class ReportController {
-
+    private static LocalTime t=LocalTime.now();
+    private static LocalTime time=LocalTime.of(t.getHour(), t.getMinute(),t.getSecond());
+    private static LocalDate date = LocalDate.now();
     @Autowired
     private ReportService service;
 
@@ -40,16 +45,17 @@ public class ReportController {
     public void generateExcelReport(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment;filename=citizenPlan.xls";
+        String headerValue = "attachment;filename=citizenPlan_"+date+" t "+time+".xls";
         response.setHeader(headerKey, headerValue);
         service.exportExcel(response);
     }
 
     @GetMapping("/pdf")
     public void generatePdfDocument(HttpServletResponse response) throws IOException {
+
         response.setContentType("application/octet-stream");
         String headerKey = "content-disposition";
-        String headerValue = "attachment;filename=ctitzenPlan.pdf";
+        String headerValue = "attachment;filename=ctitzenPlan_"+date+" t "+time+".pdf";
         response.setHeader(headerKey, headerValue);
         service.exportPdf(response);
     }

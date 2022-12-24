@@ -118,14 +118,14 @@ public class ReportServiceImpl implements ReportService {
         titleFont.setSize(20);
         titleFont.setColor(Color.red);
 
-        Paragraph paragraph = new Paragraph("Citizen Plan", titleFont);
+        Paragraph paragraph = new Paragraph("Citizen Plan Info", titleFont);
         paragraph.setAlignment(Element.ALIGN_CENTER);
         document.add(paragraph);
 
         PdfPTable table = new PdfPTable(8);
 
         table.setWidthPercentage(100);
-        table.setWidths(new int[]{3, 8, 8, 4, 6, 4, 5, 5});
+        table.setWidths(new int[]{3, 6, 10, 4, 7, 5, 5, 5});
         table.setSpacingBefore(5);
 
         PdfPCell cell = new PdfPCell();
@@ -134,6 +134,8 @@ public class ReportServiceImpl implements ReportService {
 
         Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
         font.setColor(Color.white);
+        font.setSize(10);
+        font.isBold();
 
         cell.setPhrase(new Phrase("ID", font));
         table.addCell(cell);
