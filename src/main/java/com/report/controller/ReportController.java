@@ -9,6 +9,8 @@ import org.hibernate.type.LocalDateTimeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.report.binding.CitizenPlan;
@@ -35,8 +37,8 @@ public class ReportController {
         return service.getPlanStatus();
     }
 
-    @GetMapping("/getPlan/{planName}/{planStatus}")
-    public List<CitizenPlan> getByPlanNameAndStatus(@PathVariable SearchRequest search) {
+    @PostMapping("/getPlan")
+    public List<CitizenPlan> getByPlanNameAndStatus(@RequestBody SearchRequest search) {
         List<CitizenPlan> citizenPlan = service.getCitizenPlan(search);
         return citizenPlan;
     }
