@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +38,9 @@ public class ReportController {
     }
 
     @PostMapping("/getPlan")
-    public List<CitizenPlan> getByPlanNameAndStatus(@RequestBody SearchRequest search) {
+    public ResponseEntity< List<CitizenPlan> > getByPlanNameAndStatus(@RequestBody SearchRequest search) {
         List<CitizenPlan> citizenPlan = service.getCitizenPlan(search);
-        return citizenPlan;
+        return new ResponseEntity<>(citizenPlan,HttpStatus.OK);
     }
 
     @GetMapping("/excel")
